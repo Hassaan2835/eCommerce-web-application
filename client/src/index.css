@@ -123,12 +123,13 @@ input, button {
   }
   
   .user-actions {
-    gap: 1.5rem !important;
+    gap: 1.2rem !important;
     order: 2 !important;
   }
   
   .user-actions div div {
-    display: none !important; /* Hide label text on mobile */
+    display: block !important; /* Ensure labels are visible as per design */
+    font-size: 0.7rem !important;
   }
 }
 

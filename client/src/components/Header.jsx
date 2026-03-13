@@ -3,52 +3,89 @@ import { FaUser, FaComment, FaHeart, FaShoppingCart, FaBars, FaSearch } from 're
 
 const Header = () => {
   return (
-    <header style={{ backgroundColor: 'var(--white)', borderBottom: '1px solid var(--gray-400)' }}>
-      <div className="container header-container" style={{ height: 'var(--header-height)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
-          <img src="/logo.svg" alt="Brand" style={{ height: '40px' }} />
-          <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#8CB7F5' }}>Brand</span>
+    <header style={{ backgroundColor: 'var(--white)', borderBottom: '1px solid var(--gray-400)', padding: '1rem 0' }}>
+      <div className="container header-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
+          <div style={{ 
+            backgroundColor: 'var(--primary-color)', 
+            padding: '8px', 
+            borderRadius: '8px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            boxShadow: '0 4px 10px rgba(13, 110, 253, 0.2)'
+          }}>
+            <FaShoppingCart style={{ color: 'white', fontSize: '1.4rem' }} />
+          </div>
+          <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#8CB7F5', letterSpacing: '-0.5px' }}>Brand</span>
         </div>
         
-        <div className="search-bar hide-mobile" style={{ flex: 1, margin: '0 3rem', display: 'flex' }}>
+        <div className="search-bar" style={{ 
+          flex: 1, 
+          display: 'flex', 
+          border: '2px solid var(--primary-color)', 
+          borderRadius: '8px',
+          overflow: 'hidden',
+          maxWidth: '660px',
+          marginLeft: '2rem',
+          marginRight: '2rem'
+        }}>
           <input 
             type="text" 
             placeholder="Search" 
             style={{ 
               flex: 1, 
-              padding: '0.6rem 1rem', 
-              border: '2px solid var(--primary-color)', 
-              borderRadius: '6px 0 0 6px' 
+              padding: '0.7rem 1.2rem', 
+              fontSize: '1rem',
+              border: 'none',
+              outline: 'none'
             }} 
           />
-          <select style={{ padding: '0 1rem', borderTop: '2px solid var(--primary-color)', borderBottom: '2px solid var(--primary-color)', borderLeft: '1px solid var(--gray-400)' }}>
-            <option>All category</option>
-          </select>
+          <div style={{ display: 'flex', alignItems: 'center', borderLeft: '1px solid var(--gray-400)', backgroundColor: 'transparent' }}>
+            <select style={{ 
+              padding: '0 1rem', 
+              border: 'none', 
+              outline: 'none',
+              background: 'transparent',
+              fontSize: '0.95rem',
+              cursor: 'pointer',
+              color: 'var(--dark-color)',
+              height: '100%'
+            }}>
+              <option>All category</option>
+            </select>
+          </div>
           <button 
-            className="btn" 
-            style={{ borderRadius: '0 6px 6px 0' }}
+            className="btn btn-primary" 
+            style={{ 
+              borderRadius: '0', 
+              padding: '0 1.8rem',
+              fontSize: '1rem',
+              fontWeight: '600',
+              border: 'none'
+            }}
             onClick={() => window.location.href = '/listing'}
           >
             Search
           </button>
         </div>
         
-        <div className="user-actions" style={{ display: 'flex', gap: '1.5rem', color: 'var(--gray-500)', fontSize: '0.8rem', textAlign: 'center' }}>
-          <div style={{ cursor: 'pointer' }}>
-            <FaUser style={{ fontSize: '1.2rem', marginBottom: '4px' }} />
-            <div>Profile</div>
+        <div className="user-actions" style={{ display: 'flex', gap: '1.8rem', color: 'var(--gray-500)', textAlign: 'center' }}>
+          <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <FaUser style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
+            <div style={{ fontSize: '0.75rem' }}>Profile</div>
           </div>
-          <div style={{ cursor: 'pointer' }}>
-            <FaComment style={{ fontSize: '1.2rem', marginBottom: '4px' }} />
-            <div>Message</div>
+          <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <FaComment style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
+            <div style={{ fontSize: '0.75rem' }}>Message</div>
           </div>
-          <div style={{ cursor: 'pointer' }}>
-            <FaHeart style={{ fontSize: '1.2rem', marginBottom: '4px' }} />
-            <div>Orders</div>
+          <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <FaHeart style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
+            <div style={{ fontSize: '0.75rem' }}>Orders</div>
           </div>
-          <div style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/cart'}>
-            <FaShoppingCart style={{ fontSize: '1.2rem', marginBottom: '0.3rem' }} />
-            <div>My cart</div>
+          <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }} onClick={() => window.location.href = '/cart'}>
+            <FaShoppingCart style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
+            <div style={{ fontSize: '0.75rem' }}>My cart</div>
           </div>
         </div>
       </div>
