@@ -12,14 +12,14 @@ import Footer from '../components/Footer'
 
 function Home() {
   const homeAndOutdoorProducts = [
-    { name: 'Soft chairs', price: '19', image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Sofa & chair', price: '19', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Kitchen dishes', price: '19', image: 'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Smart watches', price: '19', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Kitchen mixer', price: '100', image: 'https://images.unsplash.com/photo-1578819327433-f73000f82711?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Blenders', price: '39', image: 'https://images.unsplash.com/photo-1584210745580-0a256f8f638f?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Home appliance', price: '19', image: 'https://images.unsplash.com/photo-1556911220-e15204da7419?auto=format&fit=crop&q=80&w=1000' },
-    { name: 'Coffee maker', price: '10', image: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&q=80&w=1000' },
+    { name: 'Soft chairs', price: '19', image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Sofa & chair', price: '19', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Kitchen dishes', price: '19', image: 'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Smart watches', price: '19', image: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Kitchen mixer', price: '100', image: 'https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Blenders', price: '39', image: 'https://images.unsplash.com/photo-1585238341267-1cfec2046a55?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Home appliance', price: '19', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Coffee maker', price: '10', image: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&q=80&w=400' },
   ];
 
   const electronicsProducts = [
