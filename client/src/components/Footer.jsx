@@ -12,15 +12,15 @@ const Footer = () => {
             Best information about the company gies here but now lorem ipsum is
           </p>
           <div style={{ display: 'flex', gap: '1rem' }}>
-             {/* Social mock icons */}
-             <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
-             <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
-             <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
-             <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
-             <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
+            {/* Social mock icons */}
+            <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
+            <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
+            <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
+            <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
+            <div style={{ width: '32px', height: '32px', backgroundColor: 'var(--gray-500)', borderRadius: '50%' }}></div>
           </div>
         </div>
-        
+
         <div>
           <h4 style={{ marginBottom: '1.5rem' }}>About</h4>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', color: 'var(--gray-500)', fontSize: '0.9rem' }}>
@@ -30,7 +30,7 @@ const Footer = () => {
             <li>Blogs</li>
           </ul>
         </div>
-        
+
         <div>
           <h4 style={{ marginBottom: '1.5rem' }}>Partnership</h4>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', color: 'var(--gray-500)', fontSize: '0.9rem' }}>
@@ -40,7 +40,7 @@ const Footer = () => {
             <li>Blogs</li>
           </ul>
         </div>
-        
+
         <div>
           <h4 style={{ marginBottom: '1.5rem' }}>Information</h4>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', color: 'var(--gray-500)', fontSize: '0.9rem' }}>
@@ -50,7 +50,7 @@ const Footer = () => {
             <li>Contact us</li>
           </ul>
         </div>
-        
+
         <div>
           <h4 style={{ marginBottom: '1.5rem' }}>For users</h4>
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', color: 'var(--gray-500)', fontSize: '0.9rem' }}>
@@ -61,9 +61,9 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      
+
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 0', color: 'var(--gray-600)', fontSize: '0.9rem' }}>
-        <p>© 2023 Ecommerce. </p>
+        <p>© 2026 Ecommerce. </p>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <span>English</span>
         </div>
