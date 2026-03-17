@@ -10,16 +10,27 @@ import RegionalSuppliers from '../components/RegionalSuppliers'
 import Newsletter from '../components/Newsletter'
 import Footer from '../components/Footer'
 
+// Local Assets
+import homeOutdoorBanner from '../assets/products/home_outdoor_banner.png'
+import softChairImg from '../assets/products/soft_chair.png'
+import lampImg from '../assets/products/lamp.png'
+import airMattressImg from '../assets/products/air_mattress.png'
+import clayPotImg from '../assets/products/clay_pot.png'
+import juicerImg from '../assets/products/juicer.png'
+import espressoMachineImg from '../assets/products/espresso_machine.png'
+import fileOrganizerImg from '../assets/products/file_organizer.png'
+import tallPlantImg from '../assets/products/tall_plant.png'
+
 function Home() {
   const homeAndOutdoorProducts = [
-    { name: 'Soft chairs', price: '19', image: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Sofa & chair', price: '19', image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Kitchen dishes', price: '19', image: 'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Smart watches', price: '19', image: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Kitchen mixer', price: '100', image: 'https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Blenders', price: '39', image: 'https://images.unsplash.com/photo-1585238341267-1cfec2046a55?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Home appliance', price: '19', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400' },
-    { name: 'Coffee maker', price: '10', image: 'https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?auto=format&fit=crop&q=80&w=400' },
+    { name: 'Soft chairs', price: '19', image: softChairImg },
+    { name: 'Sofa & chair', price: '19', image: lampImg },
+    { name: 'Kitchen dishes', price: '19', image: airMattressImg },
+    { name: 'Smart watches', price: '19', image: clayPotImg },
+    { name: 'Kitchen mixer', price: '100', image: juicerImg },
+    { name: 'Blenders', price: '39', image: espressoMachineImg },
+    { name: 'Home appliance', price: '19', image: fileOrganizerImg },
+    { name: 'Coffee maker', price: '10', image: tallPlantImg },
   ];
 
   const electronicsProducts = [
@@ -40,7 +51,7 @@ function Home() {
         <Deals />
         <CategorySection 
           title="Home and outdoor" 
-          bannerImage="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=1000" 
+          bannerImage={homeOutdoorBanner} 
           products={homeAndOutdoorProducts} 
         />
         <CategorySection 
