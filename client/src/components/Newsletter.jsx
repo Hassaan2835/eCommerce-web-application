@@ -1,28 +1,63 @@
-import React from 'react'
+import React from 'react';
+import { MdEmail } from 'react-icons/md';
 
 const Newsletter = () => {
   return (
-    <section className="newsletter" style={{ padding: '3rem 0', backgroundColor: 'var(--gray-300)', textAlign: 'center' }}>
+    <section className="newsletter" style={{ padding: '3.5rem 0', backgroundColor: '#EFF2F4', textAlign: 'center' }}>
       <div className="container newsletter-container">
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Subscribe on our newsletter</h3>
-        <p style={{ color: 'var(--gray-600)', marginBottom: '1.5rem' }}>Get daily news on upcoming offers from many suppliers all over the world</p>
+        <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 'bold', color: '#1C1C1C' }}>
+          Subscribe on our newsletter
+        </h3>
+        <p style={{ color: '#606060', marginBottom: '2rem', fontSize: '1.1rem' }}>
+          Get daily news on upcoming offers from many suppliers all over the world
+        </p>
         
-        <div className="newsletter-input-group" style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-          <input 
-            type="email" 
-            placeholder="Email" 
-            style={{ 
-              padding: '0.8rem 1rem', 
-              border: '1px solid var(--gray-400)', 
-              borderRadius: '6px',
-              width: '300px'
-            }} 
-          />
-          <button className="btn-primary">Subscribe</button>
+        <div className="newsletter-input-group" style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          gap: '0.6rem',
+          maxWidth: '450px',
+          margin: '0 auto'
+        }}>
+          <div style={{ position: 'relative', flex: 1 }}>
+            <MdEmail style={{ 
+              position: 'absolute', 
+              left: '12px', 
+              top: '50%', 
+              transform: 'translateY(-50%)', 
+              color: '#8B96A5',
+              fontSize: '1.2rem'
+            }} />
+            <input 
+              type="email" 
+              placeholder="Email" 
+              style={{ 
+                padding: '0.8rem 1rem 0.8rem 2.5rem', 
+                border: '1px solid #DEE2E7', 
+                borderRadius: '6px',
+                width: '100%',
+                fontSize: '1rem',
+                backgroundColor: '#FFFFFF',
+                outline: 'none'
+              }} 
+            />
+          </div>
+          <button className="btn-primary" style={{ 
+            padding: '0.8rem 1.5rem',
+            borderRadius: '6px',
+            fontSize: '1rem',
+            fontWeight: '600',
+            backgroundColor: '#0D6EFD',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer'
+          }}>
+            Subscribe
+          </button>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Newsletter
+export default Newsletter;
