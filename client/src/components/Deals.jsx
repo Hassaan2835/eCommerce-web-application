@@ -1,16 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Deals = () => {
-  const deals = [
-    { name: 'Smart watches', discount: '-25%', image: '/deals/smart-watch.png' },
-    { name: 'Laptops', discount: '-15%', image: '/deals/laptop.png' },
-    { name: 'GoPro cameras', discount: '-40%', image: '/deals/dslr.png' },
-    { name: 'Headphones', discount: '-25%', image: '/deals/headphones.png' },
-    { name: 'Canon camaras', discount: '-25%', image: '/deals/smartphone.png' },
-  ];
+const Deals = ({ products }) => {
+  const navigate = useNavigate();
+  const [timeLeft, setTimeLeft] = useState({
+    days: 4,
+    hours: 13,
+    minutes: 34,
+    seconds: 56
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        if (prev.days > 0) return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
+        clearInterval(timer);
+        return prev;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+  
+  // Use products from props or fallback to empty array
+  const displayProducts = products && products.length > 0 ? products : [];
+
+  const formatNum = (num) => num.toString().padStart(2, '0');
 
   return (
-    <section className="deals" style={{ padding: '1.5rem 0' }}>
+    <section id="deals" className="deals" style={{ padding: '1.5rem 0' }}>
       <div className="container deals-container" style={{ 
         display: 'flex', 
         backgroundColor: 'var(--white)', 
@@ -31,19 +51,19 @@ const Deals = () => {
           
           <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
             <div className="timer-box">
-              <span className="timer-num">04</span>
+              <span className="timer-num">{formatNum(timeLeft.days)}</span>
               <p className="timer-label">Days</p>
             </div>
             <div className="timer-box">
-              <span className="timer-num">13</span>
+              <span className="timer-num">{formatNum(timeLeft.hours)}</span>
               <p className="timer-label">Hour</p>
             </div>
             <div className="timer-box">
-              <span className="timer-num">34</span>
+              <span className="timer-num">{formatNum(timeLeft.minutes)}</span>
               <p className="timer-label">Min</p>
             </div>
             <div className="timer-box">
-              <span className="timer-num">56</span>
+              <span className="timer-num">{formatNum(timeLeft.seconds)}</span>
               <p className="timer-label">Sec</p>
             </div>
           </div>
@@ -51,22 +71,27 @@ const Deals = () => {
 
         {/* Deals List */}
         <div className="deals-items-list" style={{ display: 'flex', flex: 1 }}>
-          {deals.map((deal, index) => (
-            <div key={index} style={{ 
-              flex: 1, 
-              padding: '1.2rem 0.5rem', 
-              textAlign: 'center', 
-              borderRight: index === deals.length - 1 ? 'none' : '1px solid #E3E8EE',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}>
+          {displayProducts.map((product, index) => (
+            <div 
+              key={product._id} 
+              onClick={() => navigate(`/details/${product._id}`)}
+              style={{ 
+                flex: 1, 
+                padding: '1.2rem 0.5rem', 
+                textAlign: 'center', 
+                borderRight: index === displayProducts.length - 1 ? 'none' : '1px solid #E3E8EE',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                cursor: 'pointer'
+              }}
+            >
               <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.8rem' }}>
-                <img src={deal.image} alt={deal.name} style={{ maxWidth: '140px', maxHeight: '140px', objectFit: 'contain' }} />
+                <img src={product.image} alt={product.name} style={{ maxWidth: '140px', maxHeight: '140px', objectFit: 'contain' }} />
               </div>
               <div style={{ padding: '0 0.5rem' }}>
-                <p style={{ fontSize: '0.95rem', color: '#1C1C1C', marginBottom: '0.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{deal.name}</p>
+                <p style={{ fontSize: '0.95rem', color: '#1C1C1C', marginBottom: '0.5rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.name}</p>
                 <span style={{ 
                   backgroundColor: '#FFE3E3', 
                   color: '#EB001B', 
@@ -75,10 +100,11 @@ const Deals = () => {
                   fontSize: '0.85rem', 
                   fontWeight: '600',
                   display: 'inline-block'
-                }}>{deal.discount}</span>
+                }}>-25%</span>
               </div>
             </div>
           ))}
+          {displayProducts.length === 0 && <div style={{ padding: '2rem', textAlign: 'center', flex: 1 }}>Loading deals...</div>}
         </div>
       </div>
       

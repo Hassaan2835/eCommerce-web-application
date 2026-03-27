@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { MdPerson } from 'react-icons/md';
 
 const Hero = () => {
-  const categories = [
-    'Automobiles', 'Clothes and wear', 'Home interiors', 'Computer and tech', 
-    'Tools, equipments', 'Sports and outdoor', 'Animal and pets', 'Machinery tools', 'More category'
-  ];
+  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/products/categories');
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <section className="hero" style={{ padding: '1.5rem 0' }}>
@@ -21,18 +36,39 @@ const Hero = () => {
         <aside className="hero-sidebar">
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
             {categories.map((cat, index) => (
-              <li key={index} style={{ 
-                padding: '0.7rem 1rem', 
-                borderRadius: '8px', 
-                cursor: 'pointer',
-                backgroundColor: index === 0 ? '#E5F1FF' : 'transparent',
-                fontWeight: index === 0 ? '600' : 'normal',
-                color: index === 0 ? 'var(--dark-color)' : 'var(--gray-600)',
-                fontSize: '0.95rem'
-              }}>
+              <li 
+                key={index} 
+                onClick={() => navigate(`/listing?category=${encodeURIComponent(cat)}`)}
+                style={{ 
+                  padding: '0.7rem 1rem', 
+                  borderRadius: '8px', 
+                  cursor: 'pointer',
+                  backgroundColor: 'transparent',
+                  fontWeight: 'normal',
+                  color: 'var(--gray-600)',
+                  fontSize: '0.95rem',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#E5F1FF'}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              >
                 {cat}
               </li>
             ))}
+            <li 
+              onClick={() => navigate('/listing')}
+              style={{ 
+                padding: '0.7rem 1rem', 
+                borderRadius: '8px', 
+                cursor: 'pointer',
+                color: 'var(--gray-600)',
+                fontSize: '0.95rem',
+                borderTop: '1px solid var(--gray-200)',
+                marginTop: '0.2rem'
+              }}
+            >
+              More category
+            </li>
           </ul>
         </aside>
 
@@ -53,18 +89,22 @@ const Hero = () => {
           <div style={{ maxWidth: '30% ', minWidth: '280px' }}>
             <h3 style={{ fontSize: '1.8rem', fontWeight: '400', marginBottom: '0.3rem', color: '#1C1C1C' }}>Latest trending</h3>
             <h2 style={{ fontSize: '3rem', fontWeight: 'bold', margin: '0 0 1.5rem', color: '#1C1C1C', lineHeight: '1.2' }}>Electronic items</h2>
-            <button className="btn" style={{ 
-              backgroundColor: 'var(--white)', 
-              color: 'var(--dark-color)', 
-              width: 'fit-content',
-              padding: '0.8rem 1.8rem',
-              border: 'none',
-              fontSize: '1.1rem',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontWeight: '500',
-              boxShadow: 'var(--shadow-sm)'
-            }}>Learn more</button>
+            <button 
+              className="btn" 
+              onClick={() => navigate('/listing')}
+              style={{ 
+                backgroundColor: 'var(--white)', 
+                color: 'var(--dark-color)', 
+                width: 'fit-content',
+                padding: '0.8rem 1.8rem',
+                border: 'none',
+                fontSize: '1.1rem',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500',
+                boxShadow: 'var(--shadow-sm)'
+              }}
+            >Learn more</button>
           </div>
         </div>
 
@@ -83,12 +123,48 @@ const Hero = () => {
                  color: 'var(--white)',
                  fontSize: '1.5rem'
                }}>
-                 <i className="fa-solid fa-user"></i>
+                 <MdPerson />
                </div>
-               <span style={{ fontSize: '0.95rem', lineHeight: '1.2' }}>Hi, user <br/> let's get started</span>
+               <span style={{ fontSize: '0.95rem', lineHeight: '1.2' }}>
+                 Hi, {user ? user.name.split(' ')[0] : 'user'} <br/> 
+                 {user ? 'welcome back!' : "let's get started"}
+               </span>
             </div>
-            <button className="btn-primary" style={{ width: '100%', marginBottom: '0.6rem', fontSize: '0.9rem', padding: '0.6rem' }}>Join now</button>
-            <button className="btn-outline" style={{ width: '100%', fontSize: '0.9rem', padding: '0.6rem', border: 'none', color: 'var(--primary-color)' }}>Log in</button>
+            {user ? (
+              <>
+                <button 
+                  className="btn-primary" 
+                  onClick={() => navigate(user.role === 'admin' ? '/admin' : '/')}
+                  style={{ width: '100%', marginBottom: '0.6rem', fontSize: '0.9rem', padding: '0.6rem', backgroundColor: '#0D6EFD', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+                >
+                  {user.role === 'admin' ? 'Admin Panel' : 'My Orders'}
+                </button>
+                <button 
+                  className="btn-outline" 
+                  onClick={logout}
+                  style={{ width: '100%', fontSize: '0.9rem', padding: '0.6rem', border: '1px solid #0D6EFD', color: '#0D6EFD', borderRadius: '6px', cursor: 'pointer', backgroundColor: 'transparent' }}
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <>
+                <button 
+                  className="btn-primary" 
+                  onClick={() => navigate('/signup')}
+                  style={{ width: '100%', marginBottom: '0.6rem', fontSize: '0.9rem', padding: '0.6rem', backgroundColor: '#0D6EFD', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer' }}
+                >
+                  Join now
+                </button>
+                <button 
+                  className="btn-outline" 
+                  onClick={() => navigate('/login')}
+                  style={{ width: '100%', fontSize: '0.9rem', padding: '0.6rem', border: '1px solid #0D6EFD', color: '#0D6EFD', borderRadius: '6px', cursor: 'pointer', backgroundColor: 'transparent' }}
+                >
+                  Log in
+                </button>
+              </>
+            )}
           </div>
           
           <div style={{ backgroundColor: '#F38332', color: 'var(--white)', padding: '1.2rem', borderRadius: '6px', fontSize: '1rem' }}>
@@ -101,7 +177,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Hero

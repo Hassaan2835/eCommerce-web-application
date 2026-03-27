@@ -1,115 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { MdFavoriteBorder, MdStar, MdStarBorder, MdGridView, MdList } from 'react-icons/md';
 import Newsletter from '../components/Newsletter';
+import axios from 'axios';
 
 const ProductListing = () => {
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [viewMode, setViewMode] = useState('grid');
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const products = [
-    {
-      id: 1,
-      name: 'Apple iPhone 13 Pro Max - Red',
-      price: '99.50',
-      oldPrice: '1128.00',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      image: 'https://images.unsplash.com/photo-1772868087002-fc31b6e1e5c2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    },
-    {
-      id: 2,
-      name: 'Apple iPhone 13 Pro Max - Pacific Blue',
-      price: '99.50',
-      oldPrice: '1128.00',
-      rating: '5.9',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1616348436168-de43ad0db179?q=80&w=1000'
-    },
-    {
-      id: 3,
-      name: 'Samsung Galaxy S22 Ultra - Phantom Gray',
-      price: '99.50',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=1000'
-    },
-    {
-      id: 4,
-      name: 'Apple iPad Air 10.9-inch (M1) - Space Gray',
-      price: '99.50',
-      oldPrice: '1128.00',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1000'
-    },
-    {
-      id: 5,
-      name: 'Canon EOS 2000D DSLR Camera with EF-S 18-55mm',
-      price: '99.50',
-      oldPrice: '1128.00',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000'
-    },
-    {
-      id: 6,
-      name: 'Apple iPhone 13 Pro Max - Pacific Blue',
-      price: '99.50',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1616348436168-de43ad0db179?q=80&w=1000'
-    },
-    {
-      id: 7,
-      name: 'Apple MacBook Pro 14-inch (M1 Pro) - Space Gray',
-      price: '99.50',
-      oldPrice: '1128.00',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=1000'
-    },
-    {
-      id: 8,
-      name: 'Apple Watch Series 7 (GPS) - Silver Aluminum',
-      price: '99.50',
-      oldPrice: '1128.00',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000'
-    },
-    {
-      id: 9,
-      name: 'Apple iPhone 13 Pro Max - Red',
-      price: '99.50',
-      rating: '7.5',
-      orders: '154',
-      shipping: 'Free Shipping',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: 'https://images.unsplash.com/photo-1772868087002-fc31b6e1e5c2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    }
-  ];
+  const params = new URLSearchParams(location.search);
+  const nameQuery = params.get('name') || '';
+  const categoryQuery = params.get('category') || '';
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/products/categories');
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const clearFilters = () => {
+    navigate('/listing');
+  };
+
+  const removeFilter = (type) => {
+    const newParams = new URLSearchParams(location.search);
+    newParams.delete(type);
+    navigate(`/listing?${newParams.toString()}`);
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`http://localhost:5000/api/products?name=${encodeURIComponent(nameQuery)}&category=${encodeURIComponent(categoryQuery)}&_t=${Date.now()}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, [location.search, nameQuery, categoryQuery]);
 
   return (
     <div style={{ backgroundColor: '#F7F8FA', minHeight: '100vh', padding: '1rem 0' }}>
       <div className="container">
         {/* Breadcrumbs */}
         <div style={{ padding: '1rem 0', color: '#8B96A5', fontSize: '0.95rem' }}>
-          Home &gt; Clothings &gt; Men's wear &gt; Summer clothing
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link> 
+          {categoryQuery && ` > ${categoryQuery}`} 
+          {nameQuery && ` > Search: ${nameQuery}`}
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: '1.5rem', alignItems: 'start' }}>
@@ -121,11 +72,16 @@ const ProductListing = () => {
                 <span style={{ fontSize: '1.2rem', color: '#8B96A5' }}>^</span>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, color: '#505050', display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-                <li>Mobile accessory</li>
-                <li>Electronics</li>
-                <li>Smartphones</li>
-                <li>Modern tech</li>
-                <li style={{ color: '#0D6EFD', cursor: 'pointer' }}>See all</li>
+                {categories.map((cat, index) => (
+                  <li 
+                    key={index} 
+                    style={{ cursor: 'pointer', color: categoryQuery === cat ? '#0D6EFD' : 'inherit' }} 
+                    onClick={() => navigate(`/listing?category=${encodeURIComponent(cat)}`)}
+                  >
+                    {cat}
+                  </li>
+                ))}
+                <li style={{ color: '#0D6EFD', cursor: 'pointer' }} onClick={clearFilters}>All Categories</li>
               </ul>
             </div>
 
@@ -135,10 +91,10 @@ const ProductListing = () => {
                 <span style={{ fontSize: '1.2rem', color: '#8B96A5' }}>^</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', color: '#505050' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" defaultChecked={['Samsung', 'Apple', 'Pocco'].includes('Samsung')} /> Samsung</label>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" defaultChecked /> Apple</label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Samsung</label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Apple</label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Huawei</label>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" defaultChecked /> Pocco</label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Pocco</label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Lenovo</label>
                 <span style={{ color: '#0D6EFD', cursor: 'pointer' }}>See all</span>
               </div>
@@ -150,7 +106,7 @@ const ProductListing = () => {
                 <span style={{ fontSize: '1.2rem', color: '#8B96A5' }}>^</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', color: '#505050' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" defaultChecked /> Metallic</label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Metallic</label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Plastic cover</label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> 8GB Ram</label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><input type="checkbox" /> Super power</label>
@@ -166,9 +122,9 @@ const ProductListing = () => {
               </div>
               <div style={{ marginBottom: '1rem' }}>
                 <div style={{ position: 'relative', height: '4px', backgroundColor: '#E3E8EE', borderRadius: '2px', marginBottom: '1.5rem' }}>
-                  <div style={{ position: 'absolute', left: '20%', right: '20%', height: '100%', backgroundColor: '#0D6EFD' }}></div>
-                  <div style={{ position: 'absolute', left: '20%', top: '-8px', width: '20px', height: '20px', backgroundColor: 'white', border: '2px solid #0D6EFD', borderRadius: '50%' }}></div>
-                  <div style={{ position: 'absolute', right: '20%', top: '-8px', width: '20px', height: '20px', backgroundColor: 'white', border: '2px solid #0D6EFD', borderRadius: '50%' }}></div>
+                  <div style={{ position: 'absolute', left: '0%', right: '0%', height: '100%', backgroundColor: '#0D6EFD' }}></div>
+                  <div style={{ position: 'absolute', left: '0%', top: '-8px', width: '20px', height: '20px', backgroundColor: 'white', border: '2px solid #0D6EFD', borderRadius: '50%' }}></div>
+                  <div style={{ position: 'absolute', right: '0%', top: '-8px', width: '20px', height: '20px', backgroundColor: 'white', border: '2px solid #0D6EFD', borderRadius: '50%' }}></div>
                 </div>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <div style={{ flex: 1 }}>
@@ -205,7 +161,7 @@ const ProductListing = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
                 {[5, 4, 3, 2].map(num => (
                   <label key={num} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                    <input type="checkbox" defaultChecked={num >= 3} />
+                    <input type="checkbox" />
                     <div style={{ display: 'flex', color: '#FF9017' }}>
                       {[...Array(5)].map((_, i) => i < num ? <MdStar key={i} /> : <MdStarBorder key={i} />)}
                     </div>
@@ -236,7 +192,7 @@ const ProductListing = () => {
               marginBottom: '1rem'
             }}>
               <div style={{ color: '#1C1C1C' }}>
-                12,911 items in <b>Mobile accessory</b>
+                {products.length} items found
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
@@ -266,29 +222,31 @@ const ProductListing = () => {
 
             {/* Tags (Selected Filters) */}
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-              {['Samsung', 'Apple', 'Poco', 'Metallic', '4 star', '3 star'].map(tag => (
-                <div key={tag} style={{ 
-                  backgroundColor: 'white', 
-                  border: '1px solid #DEE2E7', 
-                  color: '#1C1C1C', 
-                  padding: '0.4rem 0.8rem', 
-                  borderRadius: '6px', 
-                  fontSize: '0.9rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem'
-                }}>
-                  {tag} <span style={{ color: '#8B96A5', cursor: 'pointer', fontSize: '1.1rem' }}>×</span>
+              {categoryQuery && (
+                <div style={{ backgroundColor: 'white', border: '1px solid #DEE2E7', color: '#1C1C1C', padding: '0.4rem 0.8rem', borderRadius: '6px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Category: {categoryQuery} <span onClick={() => removeFilter('category')} style={{ color: '#8B96A5', cursor: 'pointer', fontSize: '1.1rem' }}>×</span>
                 </div>
-              ))}
-              <span style={{ color: '#0D6EFD', fontSize: '0.9rem', alignSelf: 'center', cursor: 'pointer', marginLeft: '0.5rem' }}>Clear all filter</span>
+              )}
+              {nameQuery && (
+                <div style={{ backgroundColor: 'white', border: '1px solid #DEE2E7', color: '#1C1C1C', padding: '0.4rem 0.8rem', borderRadius: '6px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  Search: {nameQuery} <span onClick={() => removeFilter('name')} style={{ color: '#8B96A5', cursor: 'pointer', fontSize: '1.1rem' }}>×</span>
+                </div>
+              )}
+              {(categoryQuery || nameQuery) && (
+                <span onClick={clearFilters} style={{ color: '#0D6EFD', fontSize: '0.9rem', alignSelf: 'center', cursor: 'pointer', marginLeft: '0.5rem' }}>Clear all filter</span>
+              )}
             </div>
 
+
             {/* Product Rendering */}
-            {viewMode === 'list' ? (
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '3rem' }}>Loading products...</div>
+            ) : products.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '3rem' }}>No products found.</div>
+            ) : viewMode === 'list' ? (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {products.map(product => (
-                  <div key={product.id} style={{ 
+                {products.map((product, index) => (
+                  <div key={`${product._id}-${index}`} style={{ 
                     backgroundColor: 'white', 
                     border: '1px solid #DEE2E7', 
                     borderRadius: '6px', 
@@ -300,12 +258,20 @@ const ProductListing = () => {
                       <MdFavoriteBorder style={{ color: '#0D6EFD', fontSize: '1.2rem' }} />
                     </div>
                     
-                    <div style={{ width: '210px', height: '210px', minWidth: '210px', marginRight: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div 
+                      style={{ width: '210px', height: '210px', minWidth: '210px', marginRight: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                      onClick={() => navigate(`/details/${product._id}`)}
+                    >
                       <img src={product.image} alt={product.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                     </div>
 
                     <div style={{ flex: 1 }}>
-                      <h4 style={{ fontSize: '1.1rem', fontWeight: '500', color: '#1C1C1C', marginBottom: '1rem', maxWidth: '80%' }}>{product.name}</h4>
+                      <h4 
+                        style={{ fontSize: '1.1rem', fontWeight: '500', color: '#1C1C1C', marginBottom: '1rem', maxWidth: '80%', cursor: 'pointer' }}
+                        onClick={() => navigate(`/details/${product._id}`)}
+                      >
+                        {product.name}
+                      </h4>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.8rem' }}>
                         <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1C1C1C' }}>${product.price}</span>
                         {product.oldPrice && <span style={{ color: '#8B96A5', textDecoration: 'line-through' }}>${product.oldPrice}</span>}
@@ -314,27 +280,32 @@ const ProductListing = () => {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem', color: '#8B96A5', fontSize: '0.95rem' }}>
                         <div style={{ display: 'flex', color: '#FF9017', alignItems: 'center' }}>
                           <MdStar /><MdStar /><MdStar /><MdStar /><MdStarBorder />
-                          <span style={{ marginLeft: '0.4rem', color: '#FF9017' }}>{product.rating}</span>
+                          <span style={{ marginLeft: '0.4rem', color: '#FF9017' }}>4.5</span>
                         </div>
                         <span style={{ fontSize: '1.2rem' }}>•</span>
-                        <span>{product.orders} orders</span>
+                        <span>154 orders</span>
                         <span style={{ fontSize: '1.2rem' }}>•</span>
-                        <span style={{ color: '#00B517' }}>{product.shipping}</span>
+                        <span style={{ color: '#00B517' }}>Free Shipping</span>
                       </div>
 
                       <p style={{ color: '#505050', lineHeight: '1.5', marginBottom: '1rem', maxWidth: '90%', fontSize: '0.95rem' }}>
                         {product.description}
                       </p>
 
-                      <span style={{ color: '#0D6EFD', fontWeight: '600', cursor: 'pointer' }}>View details</span>
+                      <span 
+                        style={{ color: '#0D6EFD', fontWeight: '600', cursor: 'pointer' }}
+                        onClick={() => navigate(`/details/${product._id}`)}
+                      >
+                        View details
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                {products.map(product => (
-                  <div key={product.id} style={{ 
+                {products.map((product, index) => (
+                  <div key={`${product._id}-${index}`} style={{ 
                     backgroundColor: 'white', 
                     border: '1px solid #DEE2E7', 
                     borderRadius: '6px', 
@@ -343,7 +314,10 @@ const ProductListing = () => {
                     flexDirection: 'column',
                     position: 'relative'
                   }}>
-                    <div style={{ height: '230px', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #EEE', margin: '-1rem -1rem 1rem -1rem', padding: '1rem' }}>
+                    <div 
+                      style={{ height: '230px', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #EEE', margin: '-1rem -1rem 1rem -1rem', padding: '1rem', cursor: 'pointer' }}
+                      onClick={() => navigate(`/details/${product._id}`)}
+                    >
                       <img src={product.image} alt={product.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                     </div>
                     
@@ -361,10 +335,15 @@ const ProductListing = () => {
                         <div style={{ display: 'flex' }}>
                           <MdStar /><MdStar /><MdStar /><MdStar /><MdStarBorder />
                         </div>
-                        <span>{product.rating}</span>
+                        <span>4.5</span>
                       </div>
 
-                      <h4 style={{ fontSize: '1rem', fontWeight: '400', color: '#505050', lineHeight: '1.4' }}>{product.name}</h4>
+                      <h4 
+                        style={{ fontSize: '1rem', fontWeight: '400', color: '#505050', lineHeight: '1.4', cursor: 'pointer' }}
+                        onClick={() => navigate(`/details/${product._id}`)}
+                      >
+                        {product.name}
+                      </h4>
                     </div>
                   </div>
                 ))}

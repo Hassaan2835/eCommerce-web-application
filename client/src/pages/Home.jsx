@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Deals from '../components/Deals'
@@ -9,67 +9,69 @@ import ExtraServices from '../components/ExtraServices'
 import RegionalSuppliers from '../components/RegionalSuppliers'
 import Newsletter from '../components/Newsletter'
 import Footer from '../components/Footer'
-
-// Local Assets - Home & Outdoor
-import homeOutdoorBanner from '../assets/products/home_outdoor_banner.png'
-import softChairImg from '../assets/products/soft_chair.png'
-import lampImg from '../assets/products/lamp.png'
-import airMattressImg from '../assets/products/air_mattress.png'
-import clayPotImg from '../assets/products/clay_pot.png'
-import juicerImg from '../assets/products/juicer.png'
-import espressoMachineImg from '../assets/products/espresso_machine.png'
-import fileOrganizerImg from '../assets/products/file_organizer.png'
-import tallPlantImg from '../assets/products/tall_plant.png'
-
-// Local Assets - Electronics
-import electronicsBanner from '../assets/electronics/electronics_banner.png'
-import smartwatchSilverImg from '../assets/electronics/smartwatch_silver.png'
-import dslrCameraImg from '../assets/electronics/dslr_camera.png'
-import whiteHeadphonesImg from '../assets/electronics/white_headphones.png'
-import blackKettleImg from '../assets/electronics/black_kettle.png'
-import gamingHeadphonesImg from '../assets/electronics/gaming_headphones.png'
-import laptopSunsetImg from '../assets/electronics/laptop_sunset.png'
+import axios from 'axios'
 
 function Home() {
-  const homeAndOutdoorProducts = [
-    { name: 'Soft chairs', price: '19', image: softChairImg },
-    { name: 'Sofa & chair', price: '19', image: lampImg },
-    { name: 'Kitchen dishes', price: '19', image: airMattressImg },
-    { name: 'Smart watches', price: '19', image: clayPotImg },
-    { name: 'Kitchen mixer', price: '100', image: juicerImg },
-    { name: 'Blenders', price: '39', image: espressoMachineImg },
-    { name: 'Home appliance', price: '19', image: fileOrganizerImg },
-    { name: 'Coffee maker', price: '10', image: tallPlantImg },
-  ];
+  const [categoriesData, setCategoriesData] = useState([])
+  const [dealsProducts, setDealsProducts] = useState([])
+  const [recommendedProducts, setRecommendedProducts] = useState([])
 
-  const electronicsProducts = [
-    { name: 'Smart watches', price: '19', image: smartwatchSilverImg },
-    { name: 'Cameras', price: '89', image: dslrCameraImg },
-    { name: 'Headphones', price: '10', image: whiteHeadphonesImg },
-    { name: 'Smart watches', price: '90', image: blackKettleImg },
-    { name: 'Gaming set', price: '35', image: gamingHeadphonesImg },
-    { name: 'Laptops & PC', price: '340', image: laptopSunsetImg },
-    { name: 'Smartphones', price: '19', image: 'https://img.icons8.com/color/480/ipad.png' },
-    { name: 'Electric kettle', price: '240', image: 'https://img.icons8.com/color/480/kettle.png' },
-  ];
+  const categoryBanners = {
+    'Electronics': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=1000&auto=format&fit=crop',
+    'Clothing': 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=1000&auto=format&fit=crop',
+    'Accessories': 'https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=1000&auto=format&fit=crop',
+    'Footwear': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop',
+    'Beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000&auto=format&fit=crop'
+  }
+
+  const defaultBanner = 'https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?q=80&w=1000&auto=format&fit=crop'
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/products?_t=${Date.now()}`)
+        const data = response.data
+        
+        // Group by category
+        const categories = {}
+        data.forEach(p => {
+          if (!categories[p.category]) categories[p.category] = []
+          categories[p.category].push(p)
+        })
+
+        const catArray = Object.keys(categories).map(cat => ({
+          title: cat,
+          products: categories[cat].slice(0, 8),
+          banner: categoryBanners[cat] || defaultBanner
+        }))
+
+        setCategoriesData(catArray)
+        setDealsProducts(data.slice(0, 5)) 
+        setRecommendedProducts(data.slice(5, 15)) 
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      }
+    }
+    fetchProducts()
+  }, [])
 
   return (
     <>
       <main style={{ padding: '0 0 2rem' }}>
         <Hero />
-        <Deals />
-        <CategorySection 
-          title="Home and outdoor" 
-          bannerImage={homeOutdoorBanner} 
-          products={homeAndOutdoorProducts} 
-        />
-        <CategorySection 
-          title="Consumer electronics and gadgets" 
-          bannerImage={electronicsBanner} 
-          products={electronicsProducts} 
-        />
+        <Deals products={dealsProducts} />
+        
+        {categoriesData.map((cat, idx) => (
+          <CategorySection 
+            key={idx}
+            title={cat.title} 
+            bannerImage={cat.banner} 
+            products={cat.products} 
+          />
+        ))}
+
         <Inquiry />
-        <RecommendedItems />
+        <RecommendedItems products={recommendedProducts} />
         <ExtraServices />
         <RegionalSuppliers />
         <Newsletter />

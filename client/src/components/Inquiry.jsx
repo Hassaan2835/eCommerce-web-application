@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Inquiry = () => {
+  const [formData, setFormData] = useState({
+    item: '',
+    details: '',
+    quantity: '',
+    unit: 'Pcs'
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Inquiry sent for ${formData.item}! (Mock success)`);
+    setFormData({ item: '', details: '', quantity: '', unit: 'Pcs' });
+  };
+
   return (
-    <section className="inquiry" style={{ padding: '0 0 2rem' }}>
+    <section id="inquiry" className="inquiry" style={{ padding: '0 0 2rem' }}>
       <div className="container inquiry-container" style={{ 
         backgroundImage: 'linear-gradient(135deg, #127FFF 0%, rgba(18, 127, 255, 0) 100%), url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000")',
         backgroundSize: 'cover',
@@ -29,13 +42,36 @@ const Inquiry = () => {
           boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
         }}>
           <h3 style={{ fontSize: '1.2rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Send quote to suppliers</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <input type="text" placeholder="What item you need?" style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', outline: 'none' }} />
-            <textarea placeholder="Type more details" style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', minHeight: '100px', outline: 'none', resize: 'none' }}></textarea>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <input 
+              type="text" 
+              placeholder="What item you need?" 
+              value={formData.item}
+              onChange={(e) => setFormData({...formData, item: e.target.value})}
+              required
+              style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', outline: 'none' }} 
+            />
+            <textarea 
+              placeholder="Type more details" 
+              value={formData.details}
+              onChange={(e) => setFormData({...formData, details: e.target.value})}
+              style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', minHeight: '100px', outline: 'none', resize: 'none' }}
+            ></textarea>
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <input type="number" placeholder="Quantity" style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', flex: 1, outline: 'none' }} />
+              <input 
+                type="number" 
+                placeholder="Quantity" 
+                value={formData.quantity}
+                onChange={(e) => setFormData({...formData, quantity: e.target.value})}
+                required
+                style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', flex: 1, outline: 'none' }} 
+              />
               <div style={{ position: 'relative', width: '120px' }}>
-                <select style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', width: '100%', outline: 'none', appearance: 'none', backgroundColor: '#fff' }}>
+                <select 
+                  value={formData.unit}
+                  onChange={(e) => setFormData({...formData, unit: e.target.value})}
+                  style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', width: '100%', outline: 'none', appearance: 'none', backgroundColor: '#fff' }}
+                >
                   <option>Pcs</option>
                   <option>Box</option>
                   <option>Kg</option>
@@ -43,8 +79,8 @@ const Inquiry = () => {
                 <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', color: '#8B96A5' }}>▼</div>
               </div>
             </div>
-            <button className="btn-primary" style={{ backgroundColor: '#127FFF', color: '#fff', border: 'none', padding: '0.8rem 1.5rem', borderRadius: '6px', fontWeight: 'bold', width: 'fit-content', marginTop: '0.5rem', cursor: 'pointer' }}>Send inquiry</button>
-          </div>
+            <button type="submit" className="btn-primary" style={{ backgroundColor: '#127FFF', color: '#fff', border: 'none', padding: '0.8rem 1.5rem', borderRadius: '6px', fontWeight: 'bold', width: 'fit-content', marginTop: '0.5rem', cursor: 'pointer' }}>Send inquiry</button>
+          </form>
         </div>
       </div>
     </section>

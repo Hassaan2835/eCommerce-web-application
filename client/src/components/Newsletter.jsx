@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdEmail } from 'react-icons/md';
 
 const Newsletter = () => {
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    alert(`Subscribed ${email}! (Mock success)`);
+    setEmail('');
+  };
+
   return (
     <section className="newsletter" style={{ padding: '3.5rem 0', backgroundColor: '#EFF2F4', textAlign: 'center' }}>
       <div className="container newsletter-container">
@@ -12,7 +20,7 @@ const Newsletter = () => {
           Get daily news on upcoming offers from many suppliers all over the world
         </p>
         
-        <div className="newsletter-input-group" style={{ 
+        <form onSubmit={handleSubscribe} className="newsletter-input-group" style={{ 
           display: 'flex', 
           justifyContent: 'center', 
           gap: '0.6rem',
@@ -30,7 +38,10 @@ const Newsletter = () => {
             }} />
             <input 
               type="email" 
+              required
               placeholder="Email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               style={{ 
                 padding: '0.8rem 1rem 0.8rem 2.5rem', 
                 border: '1px solid #DEE2E7', 
@@ -42,7 +53,7 @@ const Newsletter = () => {
               }} 
             />
           </div>
-          <button className="btn-primary" style={{ 
+          <button type="submit" className="btn-primary" style={{ 
             padding: '0.8rem 1.5rem',
             borderRadius: '6px',
             fontSize: '1rem',
@@ -54,7 +65,7 @@ const Newsletter = () => {
           }}>
             Subscribe
           </button>
-        </div>
+        </form>
       </div>
     </section>
   );
