@@ -54,46 +54,63 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
           gridTemplateRows: 'repeat(2, 1fr)',
-          flex: 1
+          flex: 1,
+          backgroundColor: 'var(--gray-200)',
+          gap: '1px' // Creates thin border look between items
         }}>
           {(products || []).map((product, index) => (
             <div 
               key={product._id || index} 
               onClick={() => product._id && navigate(`/details/${product._id}`)}
               style={{
-                padding: '1.2rem 1.2rem',
-                borderLeft: '1px solid var(--gray-400)',
-                borderBottom: index < 4 ? '1px solid var(--gray-400)' : 'none',
+                padding: '1.2rem',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                height: '130px',
+                alignItems: 'center',
+                height: '100%',
+                minHeight: '140px',
                 backgroundColor: 'var(--white)',
-                gap: '0.5rem',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                transition: 'box-shadow 0.2s'
               }}
+              onMouseOver={(e) => e.currentTarget.style.boxShadow = 'inset 0 0 10px rgba(0,0,0,0.05)'}
+              onMouseOut={(e) => e.currentTarget.style.boxShadow = 'none'}
             >
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: '1rem', color: 'var(--dark-color)', marginBottom: '4px' }}>{product.name}</p>
-                <span style={{ fontSize: '0.85rem', color: 'var(--gray-500)', lineHeight: '1.2' }}>
-                  From <br /> USD {product.price}
-                </span>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <p style={{ 
+                  fontSize: '0.95rem', 
+                  color: 'var(--dark-color)', 
+                  margin: 0,
+                  fontWeight: '500',
+                  lineHeight: '1.3',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '2',
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden'
+                }}>
+                  {product.name}
+                </p>
+                <div style={{ marginTop: 'auto' }}>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--gray-500)', margin: 0 }}>From</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--gray-500)', margin: 0, fontWeight: '500' }}>USD {product.price}</p>
+                </div>
               </div>
-              <img
-                src={product.image}
-                alt={product.name}
-                style={{
-                  width: '80px',
-                  height: '80px',
-                  objectFit: 'contain',
-                  alignSelf: 'flex-end',
-                  marginBottom: '-0.4rem'
-                }}
-              />
+              <div style={{ width: '80px', height: '80px', flexShrink: 0 }}>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Image' }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain'
+                  }}
+                />
+              </div>
             </div>
           ))}
-          {!products?.length && <div style={{ padding: '2rem', textAlign: 'center', gridColumn: 'span 4' }}>Loading category products...</div>}
+          {!products?.length && <div style={{ padding: '2rem', textAlign: 'center', gridColumn: 'span 4', backgroundColor: 'white' }}>Loading category products...</div>}
         </div>
       </div>
     </section>

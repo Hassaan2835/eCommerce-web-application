@@ -10,7 +10,7 @@ const sampleProducts = [
   {
     name: 'Smart Car OBD2 Scanner',
     price: 35.99,
-    image: 'https://images.unsplash.com/photo-1598128558393-70ff22446a86?q=80&w=1000&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1593123590211-9e64ba618f59?q=80&w=1000&auto=format&fit=crop',
     description: 'Advanced diagnostic tool for all modern cars.',
     category: 'Automobiles',
     stock: 45,
