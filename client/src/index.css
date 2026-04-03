@@ -154,6 +154,17 @@ input, button {
   .hero-container {
     grid-template-columns: 1fr !important;
   }
+  .hero-main-banner {
+    padding: 1.5rem !important;
+    background-position: center !important;
+  }
+  .hero-banner-content {
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+  .hero-banner-title {
+    font-size: 1.8rem !important;
+  }
 }
 
 /* Category Section Responsive */

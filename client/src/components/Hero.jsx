@@ -77,15 +77,15 @@ const Hero = () => {
           overflow: 'hidden',
           backgroundImage: 'url("/banner-v5.png")',
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'right',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '2rem'
+          padding: '2.5rem 3.5rem'
         }}>
-          <div style={{ maxWidth: '300px', width: '100%' }}>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '0.3rem', color: '#1C1C1C' }}>Latest trending</h3>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', margin: '0 0 1.5rem', color: '#1C1C1C', lineHeight: '1.2' }}>Electronic items</h2>
+          <div className="hero-banner-content" style={{ maxWidth: '350px', width: '100%' }}>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: '400', marginBottom: '0.4rem', color: '#1C1C1C' }}>Latest trending</h3>
+            <h2 className="hero-banner-title" style={{ fontSize: '2.4rem', fontWeight: 'bold', margin: '0 0 1.5rem', color: '#1C1C1C', lineHeight: '1.2' }}>Electronic items</h2>
             <button 
               className="btn" 
               onClick={() => navigate('/listing')}
