@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../api/config';
 import { MdInventory, MdCategory, MdAttachMoney, MdHistory } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
@@ -16,8 +17,8 @@ const AdminDashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const [statsRes, productsRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/stats'),
-          axios.get('http://localhost:5000/api/products?limit=5')
+          axios.get(`${API_BASE_URL}/stats`),
+          axios.get(`${API_BASE_URL}/products?limit=5`)
         ]);
         setStats(statsRes.data);
         setRecentProducts(productsRes.data.slice(0, 5));

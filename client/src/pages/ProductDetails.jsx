@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import axios from 'axios'
 import { useCart } from '../context/CartContext'
+import API_BASE_URL from '../api/config'
 
 const ProductDetails = () => {
   const { id } = useParams()
@@ -14,7 +15,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}?_t=${Date.now()}`);
+        const response = await axios.get(`${API_BASE_URL}/products/${id}?_t=${Date.now()}`);
         setProduct(response.data)
       } catch (error) {
         console.error('Error fetching product:', error)

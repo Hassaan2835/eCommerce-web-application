@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../api/config';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MdArrowBack, MdSave } from 'react-icons/md';
 
@@ -23,7 +24,7 @@ const AdminAddProduct = () => {
     if (isEdit) {
       const fetchProduct = async () => {
         try {
-          const res = await axios.get(`http://localhost:5000/api/products/${id}`);
+          const res = await axios.get(`${API_BASE_URL}/products/${id}`);
           setFormData(res.data);
         } catch (error) {
           console.error('Error fetching product:', error);
@@ -42,9 +43,9 @@ const AdminAddProduct = () => {
     setLoading(true);
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:5000/api/products/${id}`, formData);
+        await axios.put(`${API_BASE_URL}/products/${id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/products', formData);
+        await axios.post(`${API_BASE_URL}/products`, formData);
       }
       navigate('/admin/products');
     } catch (error) {

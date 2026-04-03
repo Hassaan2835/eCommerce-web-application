@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../api/config';
 import { MdEdit, MdDelete, MdSearch, MdAdd, MdCheck, MdClose } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ const AdminProducts = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/products?name=${searchTerm}`);
+      const res = await axios.get(`${API_BASE_URL}/products?name=${searchTerm}`);
       setProducts(res.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -30,7 +31,7 @@ const AdminProducts = () => {
     try {
       const savedUser = JSON.parse(localStorage.getItem('user'));
       const token = savedUser?.token;
-      await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      await axios.delete(`${API_BASE_URL}/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setProducts(products.filter(p => p._id !== id));

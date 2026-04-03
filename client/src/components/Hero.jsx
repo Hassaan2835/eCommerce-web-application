@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../api/config';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { MdPerson } from 'react-icons/md';
@@ -12,7 +13,7 @@ const Hero = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products/categories');
+        const response = await axios.get(`${API_BASE_URL}/products/categories`);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);

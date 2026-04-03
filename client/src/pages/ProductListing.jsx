@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { MdFavoriteBorder, MdStar, MdStarBorder, MdGridView, MdList } from 'react-icons/md';
 import Newsletter from '../components/Newsletter';
 import axios from 'axios';
+import API_BASE_URL from '../api/config';
 
 const ProductListing = () => {
   const [viewMode, setViewMode] = useState('grid');
@@ -19,7 +20,7 @@ const ProductListing = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products/categories');
+        const response = await axios.get(`${API_BASE_URL}/products/categories`);
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -42,7 +43,7 @@ const ProductListing = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/api/products?name=${encodeURIComponent(nameQuery)}&category=${encodeURIComponent(categoryQuery)}&_t=${Date.now()}`);
+        const response = await axios.get(`${API_BASE_URL}/products?name=${encodeURIComponent(nameQuery)}&category=${encodeURIComponent(categoryQuery)}&_t=${Date.now()}`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
