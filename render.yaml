@@ -6,7 +6,7 @@ services:
     region: ohio
     buildCommand: npm install
     startCommand: node index.js
-    rootDirectory: server
+    rootDir: server
     envVars:
       - key: NODE_VERSION
         value: 20
