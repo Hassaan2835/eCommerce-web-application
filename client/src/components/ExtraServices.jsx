@@ -12,36 +12,37 @@ const ExtraServices = () => {
   return (
     <section className="extra-services" style={{ padding: '1rem 0' }}>
       <div className="container">
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Our extra services</h3>
-        <div className="services-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.2rem' }}>
+        <h3 style={{ fontSize: '1.2rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Our extra services</h3>
+        <div className="services-grid" style={{ display: 'grid', gap: '1.2rem' }}>
           {services.map((service, index) => (
-            <div key={index} style={{ 
+            <div key={index} className="service-card" style={{ 
               backgroundColor: 'var(--white)', 
               borderRadius: 'var(--radius-md)', 
               border: '1px solid var(--gray-400)',
               overflow: 'hidden',
-              position: 'relative'
+              position: 'relative',
+              height: '100%'
             }}>
               <div style={{ height: '120px', backgroundImage: `url(${service.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
-              <div style={{ padding: '1.5rem', position: 'relative' }}>
+              <div style={{ padding: '1.2rem', position: 'relative' }}>
                 <div style={{ 
                   position: 'absolute', 
                   top: '-25px', 
                   right: '25px', 
-                  width: '50px', 
-                  height: '50px', 
+                  width: '44px', 
+                  height: '44px', 
                   backgroundColor: '#D1E7FF', 
                   border: '2px solid white',
                   borderRadius: '50%', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center',
-                  fontSize: '1.2rem',
+                  fontSize: '1.1rem',
                   color: 'var(--dark-color)'
                 }}>
                   {service.icon}
                 </div>
-                <p style={{ fontWeight: '500', maxWidth: '160px' }}>{service.title}</p>
+                <p style={{ fontWeight: '500', maxWidth: '160px', fontSize: '0.9rem', margin: 0, lineHeight: '1.4' }}>{service.title}</p>
               </div>
             </div>
           ))}

@@ -11,6 +11,7 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('All category');
   const [categories, setCategories] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartItems } = useCart();
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
@@ -34,9 +35,11 @@ const Header = () => {
       url += `&category=${encodeURIComponent(category)}`;
     }
     navigate(url);
+    setIsMenuOpen(false);
   };
 
   const handleNavClick = (id) => {
+    setIsMenuOpen(false);
     if (location.pathname !== '/') {
       navigate(`/#${id}`);
     } else {
@@ -48,8 +51,24 @@ const Header = () => {
   };
 
   return (
-    <header style={{ backgroundColor: 'var(--white)', borderBottom: '1px solid var(--gray-400)', padding: '1rem 0' }}>
-      <div className="container header-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+    <header style={{ backgroundColor: 'var(--white)', borderBottom: '1px solid var(--gray-400)', position: 'relative', zIndex: 1000 }}>
+      <div className="container header-container" style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
+        padding: '1rem 0',
+        flexWrap: 'wrap',
+        gap: '1rem'
+      }}>
+        {/* Mobile Menu Toggle */}
+        <div 
+          className="show-mobile" 
+          style={{ display: 'none', cursor: 'pointer', fontSize: '1.5rem' }}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <FaBars />
+        </div>
+
         <Link to="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', cursor: 'pointer', textDecoration: 'none' }}>
           <div style={{ 
             backgroundColor: 'var(--primary-color)', 
@@ -65,6 +84,7 @@ const Header = () => {
           <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#8CB7F5', letterSpacing: '-0.5px' }}>Brand</span>
         </Link>
         
+        {/* Search Bar - Responsive */}
         <div className="search-bar" style={{ 
           flex: 1, 
           display: 'flex', 
@@ -72,8 +92,8 @@ const Header = () => {
           borderRadius: '8px',
           overflow: 'hidden',
           maxWidth: '660px',
-          marginLeft: '2rem',
-          marginRight: '2rem'
+          margin: '0 1rem',
+          order: 0
         }}>
           <input 
             type="text" 
@@ -86,10 +106,11 @@ const Header = () => {
               padding: '0.7rem 1.2rem', 
               fontSize: '1rem',
               border: 'none',
-              outline: 'none'
+              outline: 'none',
+              minWidth: '50px'
             }} 
           />
-          <div style={{ display: 'flex', alignItems: 'center', borderLeft: '1px solid var(--gray-400)', backgroundColor: 'transparent' }}>
+          <div className="hide-mobile" style={{ display: 'flex', alignItems: 'center', borderLeft: '1px solid var(--gray-400)', backgroundColor: 'transparent' }}>
             <select 
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -114,8 +135,8 @@ const Header = () => {
             className="btn btn-primary" 
             style={{ 
               borderRadius: '0', 
-              padding: '0 1.8rem',
-              fontSize: '1rem',
+              padding: '0 1.5rem',
+              fontSize: '0.95rem',
               fontWeight: '600',
               border: 'none'
             }}
@@ -125,41 +146,27 @@ const Header = () => {
           </button>
         </div>
         
-        <div className="user-actions" style={{ display: 'flex', gap: '1.8rem', color: 'var(--gray-500)', textAlign: 'center' }}>
+        <div className="user-actions" style={{ display: 'flex', gap: '1.2rem', color: 'var(--gray-500)', textAlign: 'center' }}>
           <div 
             style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             onClick={() => user ? logout() : navigate('/login')}
           >
-            <MdPerson style={{ fontSize: '1.5rem', marginBottom: '4px' }} />
-            <div style={{ fontSize: '0.75rem' }}>{user ? 'Logout' : 'Login'}</div>
-          </div>
-          {isAdmin && (
-            <Link to="/admin" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'inherit' }}>
-              <MdSettings style={{ fontSize: '1.5rem', marginBottom: '4px' }} />
-              <div style={{ fontSize: '0.75rem' }}>Admin</div>
-            </Link>
-          )}
-          <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <FaComment style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
-            <div style={{ fontSize: '0.75rem' }}>Message</div>
-          </div>
-          <div style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <FaHeart style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
-            <div style={{ fontSize: '0.75rem' }}>Orders</div>
+            <MdPerson style={{ fontSize: '1.4rem' }} />
+            <div className="hide-mobile" style={{ fontSize: '0.7rem' }}>{user ? 'Logout' : 'Login'}</div>
           </div>
           <Link to="/cart" style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', textDecoration: 'none', color: 'inherit', position: 'relative' }}>
-            <FaShoppingCart style={{ fontSize: '1.3rem', marginBottom: '4px' }} />
-            <div style={{ fontSize: '0.75rem' }}>My cart</div>
+            <FaShoppingCart style={{ fontSize: '1.3rem' }} />
+            <div className="hide-mobile" style={{ fontSize: '0.7rem' }}>My cart</div>
             {cartItems.length > 0 && (
               <span style={{ 
                 position: 'absolute', 
-                top: '-5px', 
-                right: '5px', 
+                top: '-8px', 
+                right: '-8px', 
                 backgroundColor: 'red', 
                 color: 'white', 
                 borderRadius: '50%', 
                 padding: '2px 6px', 
-                fontSize: '0.7rem',
+                fontSize: '0.65rem',
                 fontWeight: 'bold'
               }}>
                 {cartItems.reduce((acc, item) => acc + item.quantity, 0)}
@@ -169,29 +176,48 @@ const Header = () => {
         </div>
       </div>
       
-      <nav style={{ borderTop: '1px solid var(--gray-400)', height: 'var(--nav-height)' }}>
-        <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <ul style={{ display: 'flex', gap: '2rem', fontWeight: '500', cursor: 'pointer', listStyle: 'none', margin: 0, padding: 0 }}>
+      {/* Navigation - Sidebar/Dropdown on Mobile */}
+      <nav className={`${isMenuOpen ? 'show-mobile' : 'hide-mobile'}`} style={{ 
+        borderTop: '1px solid var(--gray-400)', 
+        backgroundColor: 'var(--white)',
+        height: 'auto'
+      }}>
+        <div className="container" style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          flexDirection: isMenuOpen ? 'column' : 'row',
+          padding: isMenuOpen ? '1rem' : '0 1rem',
+          height: isMenuOpen ? 'auto' : 'var(--nav-height)'
+        }}>
+          <ul style={{ 
+            display: 'flex', 
+            gap: isMenuOpen ? '1rem' : '2rem', 
+            fontWeight: '500', 
+            cursor: 'pointer', 
+            flexDirection: isMenuOpen ? 'column' : 'row',
+            width: isMenuOpen ? '100%' : 'auto'
+          }}>
             <li 
-              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
-              onClick={() => navigate('/listing')}
+              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+              onClick={() => { navigate('/listing'); setIsMenuOpen(false); }}
             >
               <FaBars /> All category
             </li>
-            <li className="hide-mobile" onClick={() => handleNavClick('deals')}>Hot offers</li>
-            <li className="hide-mobile" onClick={() => navigate('/listing')}>Gift boxes</li>
-            <li className="hide-mobile" onClick={() => handleNavClick('inquiry')}>Projects</li>
-            <li className="hide-mobile" onClick={() => navigate('/')}>Menu item</li>
-            <li className="hide-mobile" onClick={() => navigate('/')}>Help</li>
+            <li onClick={() => handleNavClick('deals')}>Hot offers</li>
+            <li onClick={() => navigate('/listing')}>Gift boxes</li>
+            <li onClick={() => handleNavClick('inquiry')}>Projects</li>
+            <li onClick={() => navigate('/')}>Menu item</li>
+            <li onClick={() => navigate('/')}>Help</li>
           </ul>
-          <div style={{ display: 'flex', gap: '2rem' }}>
+          <div className="hide-mobile" style={{ display: 'flex', gap: '2rem' }}>
             <span>English, USD</span>
             <span>Ship to 🇩🇪</span>
           </div>
         </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

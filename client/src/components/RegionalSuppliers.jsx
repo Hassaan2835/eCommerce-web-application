@@ -25,23 +25,22 @@ const RegionalSuppliers = () => {
   return (
     <section className="regional-suppliers" style={{ padding: '1rem 0 3rem' }}>
       <div className="container">
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem', fontWeight: 'bold' }}>Suppliers by region</h3>
+        <h3 style={{ fontSize: '1.2rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Suppliers by region</h3>
         <div className="suppliers-grid" style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(5, 1fr)', 
           rowGap: '1.5rem',
-          columnGap: '2rem'
+          columnGap: '1rem'
         }}>
           {regions.map((region, index) => (
-            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               <img 
                 src={region.flag} 
                 alt={region.name} 
                 style={{ width: '28px', height: '20px', borderRadius: '2px', objectFit: 'cover' }} 
               />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <p style={{ fontSize: '1rem', color: '#1C1C1C', marginBottom: '0.1rem' }}>{region.name}</p>
-                <p style={{ fontSize: '0.85rem', color: '#8B96A5' }}>{region.url}</p>
+                <p style={{ fontSize: '0.9rem', color: '#1C1C1C', marginBottom: '0.1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '120px' }}>{region.name}</p>
+                <p style={{ fontSize: '0.8rem', color: '#8B96A5' }}>{region.url}</p>
               </div>
             </div>
           ))}

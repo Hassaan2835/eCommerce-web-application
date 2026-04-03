@@ -64,9 +64,9 @@ const AdminAddProduct = () => {
         <MdArrowBack /> Back to Products
       </button>
 
-      <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px', border: '1px solid #DEE2E7' }}>
+      <div className="admin-form-container" style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '12px', border: '1px solid #DEE2E7' }}>
         <form onSubmit={handleSubmit}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+          <div className="admin-form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', color: '#1C1C1C', fontWeight: '500' }}>Product Name</label>
               <input 

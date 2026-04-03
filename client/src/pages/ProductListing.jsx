@@ -14,8 +14,9 @@ const ProductListing = () => {
   const navigate = useNavigate();
 
   const params = new URLSearchParams(location.search);
+  const [categoryQuery, setCategoryQuery] = useState(params.get('category') || '');
+  const [showFilters, setShowFilters] = useState(false);
   const nameQuery = params.get('name') || '';
-  const categoryQuery = params.get('category') || '';
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -58,15 +59,18 @@ const ProductListing = () => {
     <div style={{ backgroundColor: '#F7F8FA', minHeight: '100vh', padding: '1rem 0' }}>
       <div className="container">
         {/* Breadcrumbs */}
-        <div style={{ padding: '1rem 0', color: '#8B96A5', fontSize: '0.95rem' }}>
+        <div style={{ padding: '0.8rem 0', color: '#8B96A5', fontSize: '0.9rem' }}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</Link> 
           {categoryQuery && ` > ${categoryQuery}`} 
           {nameQuery && ` > Search: ${nameQuery}`}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: '1.5rem', alignItems: 'start' }}>
+        <div className="listing-layout" style={{ display: 'grid', gap: '1.5rem', alignItems: 'start' }}>
           {/* Sidebar */}
-          <aside>
+          <aside className={`filters-sidebar ${showFilters ? 'show' : ''}`}>
+            <div className="show-mobile" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'flex-end' }}>
+              <button onClick={() => setShowFilters(false)} style={{ border: 'none', background: 'none', fontSize: '1.5rem', color: '#8B96A5' }}>×</button>
+            </div>
             <div style={{ marginBottom: '1.5rem', borderTop: '1px solid #E3E8EE', paddingTop: '1rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <h4 style={{ fontWeight: '600' }}>Category</h4>
@@ -182,7 +186,7 @@ const ProductListing = () => {
           {/* Main Content */}
           <main>
             {/* Top Bar */}
-            <div style={{ 
+            <div className="listing-top-bar" style={{ 
               backgroundColor: 'white', 
               padding: '0.8rem 1.2rem', 
               borderRadius: '6px', 
@@ -190,12 +194,21 @@ const ProductListing = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: '1rem'
+              marginBottom: '1rem',
+              gap: '1rem'
             }}>
-              <div style={{ color: '#1C1C1C' }}>
+              <div style={{ color: '#1C1C1C', fontSize: '0.95rem' }}>
                 {products.length} items found
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              
+              <div className="listing-controls" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <button 
+                  className="show-mobile btn-outline" 
+                  onClick={() => setShowFilters(true)}
+                  style={{ padding: '0.5rem 1rem', display: 'none' }}
+                >
+                  Filters
+                </button>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.95rem' }}>
                   <input type="checkbox" /> Verified only
                 </label>
@@ -245,56 +258,58 @@ const ProductListing = () => {
             ) : products.length === 0 ? (
               <div style={{ textAlign: 'center', padding: '3rem' }}>No products found.</div>
             ) : viewMode === 'list' ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div className="products-list-view" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {products.map((product, index) => (
-                  <div key={`${product._id}-${index}`} style={{ 
+                  <div key={`${product._id}-${index}`} className="product-list-item" style={{ 
                     backgroundColor: 'white', 
                     border: '1px solid #DEE2E7', 
                     borderRadius: '6px', 
                     display: 'flex', 
                     padding: '1.2rem',
-                    position: 'relative'
+                    position: 'relative',
+                    gap: '1.5rem'
                   }}>
-                    <div style={{ position: 'absolute', top: '1.2rem', right: '1.2rem', padding: '0.5rem', border: '1px solid #DEE2E7', borderRadius: '6px', display: 'flex', cursor: 'pointer' }}>
-                      <MdFavoriteBorder style={{ color: '#0D6EFD', fontSize: '1.2rem' }} />
+                    <div className="favorite-btn" style={{ position: 'absolute', top: '1.2rem', right: '1.2rem', padding: '0.5rem', border: '1px solid #DEE2E7', borderRadius: '6px', display: 'flex', cursor: 'pointer', backgroundColor: 'white', zIndex: 5 }}>
+                      <MdFavoriteBorder style={{ color: '#0D6EFD', fontSize: '1.1rem' }} />
                     </div>
                     
                     <div 
-                      style={{ width: '210px', height: '210px', minWidth: '210px', marginRight: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+                      className="product-img-box"
+                      style={{ width: '180px', height: '180px', minWidth: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                       onClick={() => navigate(`/details/${product._id}`)}
                     >
                       <img src={product.image} alt={product.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                     </div>
 
-                    <div style={{ flex: 1 }}>
+                    <div className="product-info-box" style={{ flex: 1 }}>
                       <h4 
-                        style={{ fontSize: '1.1rem', fontWeight: '500', color: '#1C1C1C', marginBottom: '1rem', maxWidth: '80%', cursor: 'pointer' }}
+                        style={{ fontSize: '1rem', fontWeight: '500', color: '#1C1C1C', marginBottom: '0.8rem', maxWidth: '85%', cursor: 'pointer', lineHeight: '1.4' }}
                         onClick={() => navigate(`/details/${product._id}`)}
                       >
                         {product.name}
                       </h4>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.8rem' }}>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1C1C1C' }}>${product.price}</span>
-                        {product.oldPrice && <span style={{ color: '#8B96A5', textDecoration: 'line-through' }}>${product.oldPrice}</span>}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.6rem' }}>
+                        <span style={{ fontSize: '1.15rem', fontWeight: 'bold', color: '#1C1C1C' }}>${product.price}</span>
+                        {product.oldPrice && <span style={{ color: '#8B96A5', textDecoration: 'line-through', fontSize: '0.9rem' }}>${product.oldPrice}</span>}
                       </div>
                       
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1rem', color: '#8B96A5', fontSize: '0.95rem' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.8rem', color: '#8B96A5', fontSize: '0.9rem', flexWrap: 'wrap' }}>
                         <div style={{ display: 'flex', color: '#FF9017', alignItems: 'center' }}>
                           <MdStar /><MdStar /><MdStar /><MdStar /><MdStarBorder />
                           <span style={{ marginLeft: '0.4rem', color: '#FF9017' }}>4.5</span>
                         </div>
-                        <span style={{ fontSize: '1.2rem' }}>•</span>
+                        <span className="hide-mobile">•</span>
                         <span>154 orders</span>
-                        <span style={{ fontSize: '1.2rem' }}>•</span>
+                        <span className="hide-mobile">•</span>
                         <span style={{ color: '#00B517' }}>Free Shipping</span>
                       </div>
 
-                      <p style={{ color: '#505050', lineHeight: '1.5', marginBottom: '1rem', maxWidth: '90%', fontSize: '0.95rem' }}>
+                      <p className="product-desc hide-mobile" style={{ color: '#505050', lineHeight: '1.5', marginBottom: '1rem', fontSize: '0.9rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                         {product.description}
                       </p>
 
                       <span 
-                        style={{ color: '#0D6EFD', fontWeight: '600', cursor: 'pointer' }}
+                        style={{ color: '#0D6EFD', fontWeight: '600', cursor: 'pointer', fontSize: '0.9rem' }}
                         onClick={() => navigate(`/details/${product._id}`)}
                       >
                         View details
@@ -304,7 +319,7 @@ const ProductListing = () => {
                 ))}
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+              <div className="products-grid-view" style={{ display: 'grid', gap: '1rem' }}>
                 {products.map((product, index) => (
                   <div key={`${product._id}-${index}`} style={{ 
                     backgroundColor: 'white', 

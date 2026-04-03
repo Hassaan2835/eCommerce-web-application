@@ -42,7 +42,7 @@ const AdminDashboard = () => {
   return (
     <div>
       {/* Stats Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2.5rem' }}>
+      <div className="admin-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2.5rem' }}>
         {statCards.map((card, idx) => (
           <div key={idx} style={{ 
             backgroundColor: 'white', 

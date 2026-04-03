@@ -25,23 +25,21 @@ const Inquiry = () => {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        color: 'white',
-        minHeight: '420px'
+        color: 'white'
       }}>
         <div className="inquiry-text" style={{ maxWidth: '440px' }}>
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '1.2rem', fontWeight: 'bold' }}>An easy way to send requests to all suppliers</h2>
-          <p style={{ fontSize: '1.1rem', lineHeight: '1.5' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+          <h2 style={{ fontSize: '1.8rem', marginBottom: '1rem', fontWeight: 'bold' }}>An easy way to send requests to all suppliers</h2>
+          <p style={{ fontSize: '1rem', lineHeight: '1.5', opacity: 0.9 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
         </div>
         
         <div className="inquiry-form-card" style={{ 
           backgroundColor: '#fff', 
           padding: '2rem', 
           borderRadius: '6px', 
-          width: '440px',
           color: '#1C1C1C',
           boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
         }}>
-          <h3 style={{ fontSize: '1.2rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Send quote to suppliers</h3>
+          <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Send quote to suppliers</h3>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <input 
               type="text" 
@@ -49,13 +47,13 @@ const Inquiry = () => {
               value={formData.item}
               onChange={(e) => setFormData({...formData, item: e.target.value})}
               required
-              style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', outline: 'none' }} 
+              style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', outline: 'none', fontSize: '0.9rem' }} 
             />
             <textarea 
               placeholder="Type more details" 
               value={formData.details}
               onChange={(e) => setFormData({...formData, details: e.target.value})}
-              style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', minHeight: '100px', outline: 'none', resize: 'none' }}
+              style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', minHeight: '80px', outline: 'none', resize: 'none', fontSize: '0.9rem' }}
             ></textarea>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <input 
@@ -64,13 +62,13 @@ const Inquiry = () => {
                 value={formData.quantity}
                 onChange={(e) => setFormData({...formData, quantity: e.target.value})}
                 required
-                style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', flex: 1, outline: 'none' }} 
+                style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', flex: 1, outline: 'none', fontSize: '0.9rem' }} 
               />
-              <div style={{ position: 'relative', width: '120px' }}>
+              <div style={{ position: 'relative', width: '100px' }}>
                 <select 
                   value={formData.unit}
                   onChange={(e) => setFormData({...formData, unit: e.target.value})}
-                  style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', width: '100%', outline: 'none', appearance: 'none', backgroundColor: '#fff' }}
+                  style={{ padding: '0.8rem', border: '1px solid #DEE2E7', borderRadius: '6px', width: '100%', outline: 'none', appearance: 'none', backgroundColor: '#fff', fontSize: '0.9rem' }}
                 >
                   <option>Pcs</option>
                   <option>Box</option>

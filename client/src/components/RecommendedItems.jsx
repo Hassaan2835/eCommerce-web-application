@@ -8,12 +8,13 @@ const RecommendedItems = ({ products }) => {
   return (
     <section className="recommended" style={{ padding: '0 0 2rem' }}>
       <div className="container">
-        <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Recommended items</h3>
-        <div className="recommended-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem' }}>
+        <h3 style={{ fontSize: '1.2rem', marginBottom: '1.5rem', fontWeight: 'bold' }}>Recommended items</h3>
+        <div className="recommended-grid" style={{ display: 'grid', gap: '1rem' }}>
           {displayProducts.map((product) => (
             <div 
               key={product._id} 
               onClick={() => navigate(`/details/${product._id}`)}
+              className="recommended-item-card"
               style={{ 
                 backgroundColor: '#fff', 
                 padding: '1.2rem', 
@@ -26,12 +27,12 @@ const RecommendedItems = ({ products }) => {
                 cursor: 'pointer'
               }}
             >
-              <div style={{ height: '160px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ height: '140px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img src={product.image} alt={product.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
               </div>
               <div style={{ flex: 1 }}>
-                <p style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.3rem' }}>${product.price}</p>
-                <p style={{ fontSize: '0.95rem', color: '#8B96A5', lineHeight: '1.4', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                <p style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.3rem' }}>${product.price}</p>
+                <p style={{ fontSize: '0.85rem', color: '#8B96A5', lineHeight: '1.4', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                   {product.name}
                 </p>
               </div>

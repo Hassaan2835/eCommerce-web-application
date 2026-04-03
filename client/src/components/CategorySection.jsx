@@ -18,7 +18,6 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
       }}>
         {/* Banner */}
         <div className="category-banner" style={{
-          width: '280px',
           backgroundImage: `url(${bannerImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -26,7 +25,7 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-start',
-          gap: '1rem'
+          gap: '1.5rem'
         }}>
           <h3 style={{ maxWidth: '140px', fontSize: '1.25rem', fontWeight: 'bold', color: '#1C1C1C' }}>{title}</h3>
           <button
@@ -52,34 +51,32 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
         {/* Product Grid */}
         <div className="category-product-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gridTemplateRows: 'repeat(2, 1fr)',
           flex: 1,
           backgroundColor: 'var(--gray-200)',
-          gap: '1px' // Creates thin border look between items
+          gap: '1px'
         }}>
           {(products || []).map((product, index) => (
             <div 
               key={product._id || index} 
               onClick={() => product._id && navigate(`/details/${product._id}`)}
+              className="category-item"
               style={{
                 padding: '1.2rem',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                height: '100%',
-                minHeight: '140px',
                 backgroundColor: 'var(--white)',
                 cursor: 'pointer',
-                transition: 'box-shadow 0.2s'
+                transition: 'box-shadow 0.2s',
+                minHeight: '130px'
               }}
               onMouseOver={(e) => e.currentTarget.style.boxShadow = 'inset 0 0 10px rgba(0,0,0,0.05)'}
               onMouseOut={(e) => e.currentTarget.style.boxShadow = 'none'}
             >
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <p style={{ 
-                  fontSize: '0.95rem', 
+                  fontSize: '0.9rem', 
                   color: 'var(--dark-color)', 
                   margin: 0,
                   fontWeight: '500',
@@ -92,11 +89,11 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
                   {product.name}
                 </p>
                 <div style={{ marginTop: 'auto' }}>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--gray-500)', margin: 0 }}>From</p>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--gray-500)', margin: 0, fontWeight: '500' }}>USD {product.price}</p>
+                  <p style={{ fontSize: '0.75rem', color: 'var(--gray-500)', margin: 0 }}>From</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--gray-500)', margin: 0, fontWeight: '500' }}>USD {product.price}</p>
                 </div>
               </div>
-              <div style={{ width: '80px', height: '80px', flexShrink: 0 }}>
+              <div style={{ width: '70px', height: '70px', flexShrink: 0 }}>
                 <img
                   src={product.image}
                   alt={product.name}
@@ -110,7 +107,7 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
               </div>
             </div>
           ))}
-          {!products?.length && <div style={{ padding: '2rem', textAlign: 'center', gridColumn: 'span 4', backgroundColor: 'white' }}>Loading category products...</div>}
+          {!products?.length && <div style={{ padding: '2rem', textAlign: 'center', gridColumn: 'span 4', backgroundColor: 'white' }}>Loading products...</div>}
         </div>
       </div>
     </section>

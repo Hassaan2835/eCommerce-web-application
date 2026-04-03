@@ -20,10 +20,9 @@ const Hero = () => {
   const { user, logout } = useAuth();
 
   return (
-    <section className="hero" style={{ padding: '1.5rem 0' }}>
+    <section className="hero" style={{ padding: '1rem 0' }}>
       <div className="container hero-container" style={{ 
         display: 'grid', 
-        gridTemplateColumns: '250px 1fr 200px', 
         gap: '1.5rem',
         backgroundColor: 'var(--white)',
         padding: '1.5rem',
@@ -31,7 +30,7 @@ const Hero = () => {
         border: '1px solid var(--gray-400)'
       }}>
         {/* Sidebar */}
-        <aside className="hero-sidebar">
+        <aside className="hero-sidebar hide-mobile">
           <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
             {categories.map((cat, index) => (
               <li 
@@ -82,11 +81,11 @@ const Hero = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '3rem 3rem'
+          padding: '2rem'
         }}>
-          <div style={{ maxWidth: '30% ', minWidth: '280px' }}>
-            <h3 style={{ fontSize: '1.8rem', fontWeight: '400', marginBottom: '0.3rem', color: '#1C1C1C' }}>Latest trending</h3>
-            <h2 style={{ fontSize: '3rem', fontWeight: 'bold', margin: '0 0 1.5rem', color: '#1C1C1C', lineHeight: '1.2' }}>Electronic items</h2>
+          <div style={{ maxWidth: '300px', width: '100%' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: '400', marginBottom: '0.3rem', color: '#1C1C1C' }}>Latest trending</h3>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', margin: '0 0 1.5rem', color: '#1C1C1C', lineHeight: '1.2' }}>Electronic items</h2>
             <button 
               className="btn" 
               onClick={() => navigate('/listing')}
@@ -94,9 +93,9 @@ const Hero = () => {
                 backgroundColor: 'var(--white)', 
                 color: 'var(--dark-color)', 
                 width: 'fit-content',
-                padding: '0.8rem 1.8rem',
+                padding: '0.7rem 1.5rem',
                 border: 'none',
-                fontSize: '1.1rem',
+                fontSize: '1rem',
                 borderRadius: '8px',
                 cursor: 'pointer',
                 fontWeight: '500',
@@ -107,7 +106,7 @@ const Hero = () => {
         </div>
 
         {/* Right Info Cards */}
-        <div className="hero-right-cards" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+        <div className="hero-right-cards hide-tablet" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
           <div className="hero-user-card" style={{ backgroundColor: '#E3F0FF', padding: '1.2rem 1rem', borderRadius: '6px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.8rem' }}>
                <div style={{ 
@@ -123,7 +122,7 @@ const Hero = () => {
                }}>
                  <MdPerson />
                </div>
-               <span style={{ fontSize: '0.95rem', lineHeight: '1.2' }}>
+               <span style={{ fontSize: '0.9rem', lineHeight: '1.2' }}>
                  Hi, {user ? user.name.split(' ')[0] : 'user'} <br/> 
                  {user ? 'welcome back!' : "let's get started"}
                </span>
@@ -165,11 +164,11 @@ const Hero = () => {
             )}
           </div>
           
-          <div style={{ backgroundColor: '#F38332', color: 'var(--white)', padding: '1.2rem', borderRadius: '6px', fontSize: '1rem' }}>
+          <div style={{ backgroundColor: '#F38332', color: 'var(--white)', padding: '1rem', borderRadius: '6px', fontSize: '0.9rem' }}>
             <p style={{ margin: 0 }}>Get US $10 off <br/> with a new <br/> supplier</p>
           </div>
           
-          <div style={{ backgroundColor: '#55BDC3', color: 'var(--white)', padding: '1.2rem', borderRadius: '6px', fontSize: '1rem' }}>
+          <div style={{ backgroundColor: '#55BDC3', color: 'var(--white)', padding: '1rem', borderRadius: '6px', fontSize: '0.9rem' }}>
             <p style={{ margin: 0 }}>Send quotes with <br/> supplier <br/> preferences</p>
           </div>
         </div>
@@ -178,4 +177,4 @@ const Hero = () => {
   );
 };
 
-export default Hero
+export default Hero;

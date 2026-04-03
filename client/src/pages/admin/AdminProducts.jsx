@@ -44,9 +44,9 @@ const AdminProducts = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', border: '1px solid #DEE2E7' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <div style={{ position: 'relative', width: '350px' }}>
+    <div className="admin-card" style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', border: '1px solid #DEE2E7' }}>
+      <div className="admin-products-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
+        <div className="admin-search-wrapper" style={{ position: 'relative', width: '350px' }}>
           <MdSearch style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#8B96A5', fontSize: '1.2rem' }} />
           <input 
             type="text" 
@@ -63,6 +63,7 @@ const AdminProducts = () => {
           />
         </div>
         <button 
+          className="btn-add-product"
           onClick={() => navigate('/admin/add-product')}
           style={{ 
             backgroundColor: '#0D6EFD', 
@@ -74,7 +75,8 @@ const AdminProducts = () => {
             alignItems: 'center', 
             gap: '0.5rem',
             cursor: 'pointer',
-            fontWeight: '600'
+            fontWeight: '600',
+            whiteSpace: 'nowrap'
           }}
         >
           <MdAdd /> Add Product
