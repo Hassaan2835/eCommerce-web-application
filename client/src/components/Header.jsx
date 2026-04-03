@@ -81,7 +81,7 @@ const Header = () => {
           }}>
             <FaShoppingCart style={{ color: 'white', fontSize: '1.4rem' }} />
           </div>
-          <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#8CB7F5', letterSpacing: '-0.5px' }}>Brand</span>
+          <span style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--primary-color)', letterSpacing: '-0.5px' }}>Brand</span>
         </Link>
         
         {/* Search Bar - Responsive */}
@@ -146,7 +146,7 @@ const Header = () => {
           </button>
         </div>
         
-        <div className="user-actions" style={{ display: 'flex', gap: '1.2rem', color: 'var(--gray-500)', textAlign: 'center' }}>
+        <div className="user-actions" style={{ display: 'flex', gap: '1.2rem', color: 'var(--gray-600)', textAlign: 'center' }}>
           <div 
             style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             onClick={() => user ? logout() : navigate('/login')}

@@ -44,7 +44,7 @@ const Deals = ({ products }) => {
           flexDirection: 'column'
         }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: '600', color: 'var(--dark-color)', marginBottom: '0.2rem' }}>Deals and offers</h3>
-          <p style={{ color: 'var(--gray-500)', fontSize: '0.9rem', marginBottom: '1.2rem' }}>Hygiene equipments</p>
+          <p style={{ color: 'var(--gray-600)', fontSize: '0.9rem', marginBottom: '1.2rem' }}>Hygiene equipment</p>
           
           <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
             <div className="timer-box">

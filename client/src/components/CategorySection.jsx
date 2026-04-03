@@ -18,7 +18,7 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
       }}>
         {/* Banner */}
         <div className="category-banner" style={{
-          backgroundImage: `url(${bannerImage})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.05) 100%), url(${bannerImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           padding: '1.5rem',
@@ -27,7 +27,7 @@ const CategorySection = ({ title, bannerImage, products = [] }) => {
           justifyContent: 'flex-start',
           gap: '1.5rem'
         }}>
-          <h3 style={{ maxWidth: '140px', fontSize: '1.25rem', fontWeight: 'bold', color: '#1C1C1C' }}>{title}</h3>
+          <h3 style={{ maxWidth: '140px', fontSize: '1.25rem', fontWeight: 'bold', color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.3)' }}>{title}</h3>
           <button
             className="btn"
             style={{

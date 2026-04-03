@@ -32,7 +32,7 @@ const RecommendedItems = ({ products }) => {
               </div>
               <div style={{ flex: 1 }}>
                 <p style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.3rem' }}>${product.price}</p>
-                <p style={{ fontSize: '0.85rem', color: '#8B96A5', lineHeight: '1.4', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                <p style={{ fontSize: '0.85rem', color: 'var(--gray-500)', lineHeight: '1.4', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                   {product.name}
                 </p>
               </div>

@@ -47,7 +47,7 @@ const AdminProducts = () => {
     <div className="admin-card" style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '12px', border: '1px solid #DEE2E7' }}>
       <div className="admin-products-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
         <div className="admin-search-wrapper" style={{ position: 'relative', width: '350px' }}>
-          <MdSearch style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#8B96A5', fontSize: '1.2rem' }} />
+          <MdSearch style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--gray-500)', fontSize: '1.2rem' }} />
           <input 
             type="text" 
             placeholder="Search products..." 
@@ -87,11 +87,11 @@ const AdminProducts = () => {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ textAlign: 'left', borderBottom: '1px solid #DEE2E7' }}>
-              <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Product</th>
-              <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Category</th>
-              <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Price</th>
-              <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Stock</th>
-              <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Actions</th>
+              <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Product</th>
+              <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Category</th>
+              <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Price</th>
+              <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Stock</th>
+              <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Actions</th>
             </tr>
           </thead>
           <tbody>

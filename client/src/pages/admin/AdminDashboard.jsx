@@ -67,7 +67,7 @@ const AdminDashboard = () => {
               {card.icon}
             </div>
             <div>
-              <p style={{ color: '#8B96A5', margin: '0 0 0.4rem 0', fontSize: '0.95rem' }}>{card.label}</p>
+              <p style={{ color: 'var(--gray-500)', margin: '0 0 0.4rem 0', fontSize: '0.95rem' }}>{card.label}</p>
               <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 'bold', color: '#1C1C1C' }}>{card.value}</h3>
             </div>
           </div>
@@ -87,10 +87,10 @@ const AdminDashboard = () => {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ textAlign: 'left', borderBottom: '1px solid #DEE2E7' }}>
-                <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Product</th>
-                <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Category</th>
-                <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Price</th>
-                <th style={{ padding: '1rem', color: '#8B96A5', fontWeight: '500' }}>Stock</th>
+                <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Product</th>
+                <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Category</th>
+                <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Price</th>
+                <th style={{ padding: '1rem', color: 'var(--gray-500)', fontWeight: '500' }}>Stock</th>
               </tr>
             </thead>
             <tbody>

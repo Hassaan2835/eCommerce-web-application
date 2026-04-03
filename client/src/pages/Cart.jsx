@@ -48,7 +48,7 @@ const Cart = () => {
                       </h4>
                       <span className="cart-item-price" style={{ fontWeight: 'bold', fontSize: '1.1rem', color: '#1C1C1C' }}>${(item.price * item.quantity).toFixed(2)}</span>
                     </div>
-                    <p style={{ color: '#8B96A5', fontSize: '0.85rem' }}>
+                    <p style={{ color: 'var(--gray-500)', fontSize: '0.85rem' }}>
                       Category: {item.category}
                     </p>
                     <div className="cart-item-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', flexWrap: 'wrap', gap: '1rem' }}>
@@ -78,7 +78,7 @@ const Cart = () => {
 
           <aside className="cart-summary">
             <div style={{ backgroundColor: 'var(--white)', padding: '1.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--gray-400)', marginBottom: '1.5rem' }}>
-              <p style={{ marginBottom: '1rem', color: '#505050', fontSize: '0.95rem' }}>Have coupon?</p>
+              <p style={{ marginBottom: '1rem', color: 'var(--gray-600)', fontSize: '0.95rem' }}>Have coupon?</p>
               <div style={{ display: 'flex' }}>
                 <input type="text" placeholder="Add coupon" style={{ flex: 1, padding: '0.6rem', border: '1px solid #DEE2E7', borderRadius: '6px 0 0 6px', outline: 'none' }} />
                 <button className="btn" style={{ padding: '0.5rem 1rem', backgroundColor: 'var(--white)', color: '#0D6EFD', border: '1px solid #DEE2E7', borderLeft: 'none', borderRadius: '0 6px 6px 0', fontWeight: '600' }}>Apply</button>
@@ -86,7 +86,7 @@ const Cart = () => {
             </div>
 
             <div style={{ backgroundColor: 'var(--white)', padding: '1.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--gray-400)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem', color: '#505050', fontSize: '1rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem', color: 'var(--gray-600)', fontSize: '1rem' }}>
                 <span>Subtotal:</span>
                 <span>${subtotal.toFixed(2)}</span>
               </div>

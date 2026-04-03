@@ -17,7 +17,7 @@ const Inquiry = () => {
   return (
     <section id="inquiry" className="inquiry" style={{ padding: '0 0 2rem' }}>
       <div className="container inquiry-container" style={{ 
-        backgroundImage: 'linear-gradient(135deg, #127FFF 0%, rgba(18, 127, 255, 0) 100%), url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000")',
+        backgroundImage: 'linear-gradient(135deg, rgba(18, 127, 255, 0.9) 0%, rgba(18, 127, 255, 0.4) 100%), url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         padding: '2.5rem 3rem',
