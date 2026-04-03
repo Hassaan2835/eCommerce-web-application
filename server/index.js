@@ -5,12 +5,18 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
+let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
+// Sanitization: Remove extra spaces and accidental brackets < >
+MONGODB_URI = MONGODB_URI.trim().replace(/[<>]/g, '');
 
 // Database Connection
 mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => {
+    console.error('MongoDB connection error:', err.message);
+    // Log the start of URI for debugging (safe version)
+    console.log('URI used (redacted):', MONGODB_URI.substring(0, 20) + '...');
+  });
 
 // Middleware
 app.use(cors());
