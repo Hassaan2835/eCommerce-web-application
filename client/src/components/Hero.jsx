@@ -6,21 +6,18 @@ import { useAuth } from '../context/AuthContext';
 import { MdPerson } from 'react-icons/md';
 
 const Hero = () => {
-  const [categories, setCategories] = useState([]);
+  const categories = [
+    'Automobiles',
+    'Clothes and wear',
+    'Home interiors',
+    'Computer and tech',
+    'Tools, equipments',
+    'Sports and outdoor',
+    'Animal and pets',
+    'Machinery tools'
+  ];
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/products/categories`);
-        setCategories(response.data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
-    fetchCategories();
-  }, []);
 
   return (
     <section className="hero" style={{ padding: '1.5rem 0' }}>
