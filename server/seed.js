@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const Product = require('./models/Product');
 require('dotenv').config();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
+let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ecommerce';
+// Sanitization: Remove extra spaces and accidental brackets < >
+MONGODB_URI = MONGODB_URI.trim().replace(/[<>]/g, '');
 
 const sampleProducts = [
   {
